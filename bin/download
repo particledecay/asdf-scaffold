@@ -16,10 +16,10 @@ release_file="$ASDF_DOWNLOAD_PATH/$(get_release_file)"
 download_release "$ASDF_INSTALL_VERSION" "$release_file"
 
 # Extract contents of file into the download directory
-if [ "$(get_file_ext)" = "zip" ]; then
-	unzip -o "$release_file" -d "$ASDF_DOWNLOAD_PATH" || fail "Could not extract $release_file"
+if [ "$(get_os)" = "Windows" ]; then
+	unzip -o "$release_file" -d "$ASDF_DOWNLOAD_PATH" ${TOOL_NAME}.exe || fail "Could not extract $release_file"
 else
-	tar -xzf "$release_file" -C "$ASDF_DOWNLOAD_PATH" --strip-components=1 || fail "Could not extract $release_file"
+	tar -xzf "$release_file" -C "$ASDF_DOWNLOAD_PATH" $TOOL_NAME || fail "Could not extract $release_file"
 fi
 
 # Remove the tar.gz file since we don't need to keep it
